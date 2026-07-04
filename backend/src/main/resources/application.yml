@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: flagforge-backend
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:flagforge}
+    username: ${DB_USER:flagforge}
+    password: ${DB_PASSWORD:flagforge}
+  jpa:
+    hibernate:
+      ddl-auto: validate  # Flyway owns schema changes, never let Hibernate auto-generate DDL
+    open-in-view: false    # avoid the open-session-in-view anti-pattern
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:}
+            client-secret: ${GOOGLE_CLIENT_SECRET:}
+            scope: [ email, profile ]
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  endpoint:
+    health:
+      show-details: never
+
+jwt:
+  access-token-ttl-minutes: 15
+  refresh-token-ttl-days: 7
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

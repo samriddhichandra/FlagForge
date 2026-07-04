@@ -1,0 +1,15 @@
+server:
+  error:
+    include-stacktrace: never
+    include-message: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health   # prometheus scraped internally only, not exposed publicly in this profile
+
+logging:
+  level:
+    root: INFO
+    com.flagforge: INFO

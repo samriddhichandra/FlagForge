@@ -1,0 +1,6 @@
+target
+.mvn/timing.properties
+*.log
+*.iml
+.idea
+.vscode
